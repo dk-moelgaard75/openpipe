@@ -26,6 +26,8 @@ public class NodeController {
 	
 	 @Autowired
 	 WasteWaterNodeRepository wwnRepository;
+	 @Autowired
+	 WaterNodeRepository wnRepository;
 	
 	@GetMapping("/wastewaternode")
 	public List<WasteWaterNodeEntity> getAllWasteWaterNodes() {
@@ -55,29 +57,37 @@ public class NodeController {
 	@DeleteMapping("/wastewaternode/{name}")
 	public ResponseEntity<String> deleteWasteWaterNode(@PathVariable String name) {
 		System.out.println("/node/wastewaternode/{name} - deletemapping");
-		wwnRepository.delete(wwnRepository.findByName(name));
-		return new ResponseEntity<>("Wastewaternode deleted",HttpStatus.OK);
+		WasteWaterNodeEntity wwne = wwnRepository.findByName(name); 
+		if (wwne != null)
+		{
+			wwnRepository.delete(wwne);
+			return new ResponseEntity<>("Wastewaternode deleted",HttpStatus.OK);
+		}
+		return new ResponseEntity<>("Wastewaternode wasn´t found",HttpStatus.NOT_FOUND);
 	}
 	
 	/**********************************/
 
 	@GetMapping("/waternode")
-	public List<WaterNodeModel> getAllWaterNodes() {
-		return new ArrayList<WaterNodeModel>();
+	public List<WaterNodeEntity> getAllWaterNodes() {
+		System.out.println("/node/waternode/{name} - getmapping");
+		return wnRepository.findAll();
 	}
 	@PostMapping(value = "/waternode")
-	public ResponseEntity<String> createWaterNode(@RequestBody WaterNodeEntity wwndto) {
-		WaterNodeModel wnm = new WaterNodeModel(wwndto.getName());
-		wnm.setX(wwndto.getX());
-		wnm.setY(wwndto.getY());
-		wnm.setDepth(wwndto.getDepth());
-		
+	public ResponseEntity<String> createWaterNode(@RequestBody WaterNodeEntity wndto) {
+		System.out.println("/node/waternode/{name} - postmapping");
+		WaterNodeEntity wne = new WaterNodeEntity();
+		wne.setName(wndto.getName());
+		wne.setX(wndto.getX());
+		wne.setY(wndto.getY());
+		wne.setDepth(wndto.getDepth());
+		wnRepository.save(wne);
 		return new ResponseEntity<>("Waternode created", HttpStatus.OK);
 	}
 	@GetMapping("/waternode/{name}")
-	public WasteWaterNodeModel geWaterNode(@PathVariable String name) {
-		//TODO - to be implemented
-		return new WasteWaterNodeModel("");
+	public WaterNodeEntity geWaterNode(@PathVariable String name) {
+		System.out.println("/node/wastewaternode/{name} - getmapping");
+		return wnRepository.findByName(name);
 	}
 	/*
 	@PutMapping("/wastewaternode/{name}")
@@ -85,7 +95,12 @@ public class NodeController {
 	*/
 	@DeleteMapping("/waternode/{name}")
 	public ResponseEntity<String> deleteWaterNode(@PathVariable String name) {
-	    //TODO - implement delete 
-		return new ResponseEntity<>("Waternode deleted",HttpStatus.OK);
+		WaterNodeEntity wne = wnRepository.findByName(name); 
+		if (wne != null)
+		{
+			wnRepository.delete(wne);
+			return new ResponseEntity<>("Waternode deleted",HttpStatus.OK);
+		}
+		return new ResponseEntity<>("Waternode wasn´t found",HttpStatus.NOT_FOUND);
 	}
 }
