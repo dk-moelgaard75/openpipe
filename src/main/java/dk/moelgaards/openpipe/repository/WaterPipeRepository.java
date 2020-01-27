@@ -5,10 +5,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 
-import dk.moelgaards.openpipe.entities.WaterPipeEntity;
+import dk.moelgaards.openpipe.models.WaterPipeModel;
 
 @Repository
-public interface WaterPipeRepository extends JpaRepository<WaterPipeEntity, Long>{
+public interface WaterPipeRepository extends JpaRepository<WaterPipeModel, Long>{
 	@Query("SELECT t FROM WaterPipeEntity t WHERE t.fromNode = ?1 and t.toNode = ?2")
-	WaterPipeEntity findByNodes(String fromNode, String toNode);
+	WaterPipeModel findByNodes(String fromNode, String toNode);
 }

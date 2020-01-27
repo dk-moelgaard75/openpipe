@@ -4,11 +4,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-
-import dk.moelgaards.openpipe.entities.WasteWaterPipeEntity;
+import dk.moelgaards.openpipe.models.WasteWaterPipeModel;
 
 @Repository
-public interface WasteWaterPipeRepository extends JpaRepository<WasteWaterPipeEntity, Long> {
+public interface WasteWaterPipeRepository extends JpaRepository<WasteWaterPipeModel, Long> {
 	
 	/**
 	 * 
@@ -17,5 +16,5 @@ public interface WasteWaterPipeRepository extends JpaRepository<WasteWaterPipeEn
 	 * @return WasteWaterPipeEntity based on from and to nodes
 	 */
 	@Query("SELECT t FROM WasteWaterPipeEntity t WHERE t.fromNode = ?1 and t.toNode = ?2")
-	WasteWaterPipeEntity findByNodes(String fromnode, String tonode);
+	WasteWaterPipeModel findByNodes(String fromnode, String tonode);
 }

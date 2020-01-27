@@ -30,14 +30,13 @@ public class NodeController {
 	 WaterNodeRepository wnRepository;
 	
 	@GetMapping("/wastewaternode")
-	public List<WasteWaterNodeEntity> getAllWasteWaterNodes() {
+	public List<WasteWaterNodeModel> getAllWasteWaterNodes() {
 		return wwnRepository.findAll();
 	}
 	@PostMapping(value = "/wastewaternode")
 	public ResponseEntity<String> createWasteWaterNode(@RequestBody WasteWaterNodeEntity wwndto) {
 		System.out.println("/node/wastewaternode - postmapping");
-		WasteWaterNodeEntity wwnm = new WasteWaterNodeEntity();
-		wwnm.setName(wwndto.getName());
+		WasteWaterNodeModel wwnm = new WasteWaterNodeModel(wwndto.getName());
 		wwnm.setX(wwndto.getX());
 		wwnm.setY(wwndto.getY());
 		wwnm.setTopLevel(wwndto.getTopLevel());
@@ -46,7 +45,7 @@ public class NodeController {
 		return new ResponseEntity<>("Wastewaternode created", HttpStatus.OK);
 	}
 	@GetMapping("/wastewaternode/{name}")
-	public WasteWaterNodeEntity getWasteWaterNode(@PathVariable String name) {
+	public WasteWaterNodeModel getWasteWaterNode(@PathVariable String name) {
 		System.out.println("/node/wastewaternode/{name} - getmapping");
 		return wwnRepository.findByName(name);
 	}
@@ -57,7 +56,7 @@ public class NodeController {
 	@DeleteMapping("/wastewaternode/{name}")
 	public ResponseEntity<String> deleteWasteWaterNode(@PathVariable String name) {
 		System.out.println("/node/wastewaternode/{name} - deletemapping");
-		WasteWaterNodeEntity wwne = wwnRepository.findByName(name); 
+		WasteWaterNodeModel wwne = wwnRepository.findByName(name); 
 		if (wwne != null)
 		{
 			wwnRepository.delete(wwne);
@@ -69,15 +68,14 @@ public class NodeController {
 	/**********************************/
 
 	@GetMapping("/waternode")
-	public List<WaterNodeEntity> getAllWaterNodes() {
+	public List<WaterNodeModel> getAllWaterNodes() {
 		System.out.println("/node/waternode/{name} - getmapping");
 		return wnRepository.findAll();
 	}
 	@PostMapping(value = "/waternode")
 	public ResponseEntity<String> createWaterNode(@RequestBody WaterNodeEntity wndto) {
 		System.out.println("/node/waternode/{name} - postmapping");
-		WaterNodeEntity wne = new WaterNodeEntity();
-		wne.setName(wndto.getName());
+		WaterNodeModel wne = new WaterNodeModel(wndto.getName());
 		wne.setX(wndto.getX());
 		wne.setY(wndto.getY());
 		wne.setDepth(wndto.getDepth());
@@ -85,7 +83,7 @@ public class NodeController {
 		return new ResponseEntity<>("Waternode created", HttpStatus.OK);
 	}
 	@GetMapping("/waternode/{name}")
-	public WaterNodeEntity geWaterNode(@PathVariable String name) {
+	public WaterNodeModel geWaterNode(@PathVariable String name) {
 		System.out.println("/node/wastewaternode/{name} - getmapping");
 		return wnRepository.findByName(name);
 	}
@@ -95,7 +93,7 @@ public class NodeController {
 	*/
 	@DeleteMapping("/waternode/{name}")
 	public ResponseEntity<String> deleteWaterNode(@PathVariable String name) {
-		WaterNodeEntity wne = wnRepository.findByName(name); 
+		WaterNodeModel wne = wnRepository.findByName(name); 
 		if (wne != null)
 		{
 			wnRepository.delete(wne);
