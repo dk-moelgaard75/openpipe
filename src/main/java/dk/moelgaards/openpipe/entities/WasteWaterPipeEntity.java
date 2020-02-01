@@ -1,13 +1,23 @@
-package dk.moelgaards.openpipe.models;
+package dk.moelgaards.openpipe.entities;
 
 import dk.moelgaards.openpipe.exceptions.NodeException;
-import dk.moelgaards.openpipe.models.*;
 
-public class WasteWaterPipeModel extends PipeModel {
-	private WasteWaterPipeModel() {
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
+
+
+
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name="tbl_wastewaterpipe")
+public class WasteWaterPipeEntity extends PipeEntity {
+	
+	private WasteWaterPipeEntity() {
 		//empty private constructor ensures a WasteWaterNode isn´t created without a name
 	}
-	public WasteWaterPipeModel(WasteWaterNodeModel fromNode, WasteWaterNodeModel toNode) {
+	public WasteWaterPipeEntity(WasteWaterNodeEntity fromNode, WasteWaterNodeEntity toNode) {
 		super.setFromNode(fromNode);
 		super.setToNode(toNode);
 	}
@@ -24,8 +34,8 @@ public class WasteWaterPipeModel extends PipeModel {
 		try
 		{
 			double length = super.length();
-			double nodeDropDelta = Math.abs(((WasteWaterNodeModel)super.getFromNode()).getBottomLevel() - 
-				((WasteWaterNodeModel)super.getToNode()).getBottomLevel());
+			double nodeDropDelta = Math.abs(((WasteWaterNodeEntity)super.getFromNode()).getBottomLevel() - 
+				((WasteWaterNodeEntity)super.getToNode()).getBottomLevel());
 			retValue = length / nodeDropDelta;
 		}
 		catch (Exception e){

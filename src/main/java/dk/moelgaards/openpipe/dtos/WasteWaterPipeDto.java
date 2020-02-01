@@ -1,22 +1,9 @@
-package dk.moelgaards.openpipe.entities;
+package dk.moelgaards.openpipe.dtos;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Entity
-@Table(name="tbl_wastewaterpipe")
-public class WasteWaterPipeEntity {
-	@Id
-    @GeneratedValue
-    private Long id;
-	
-	 @Column(name="fromNode")
+public class WasteWaterPipeDto {
+
 	 private String fromNode;
-
-	 @Column(name="toNode")
 	 private String toNode;
 	
 	 public String getToNode() {

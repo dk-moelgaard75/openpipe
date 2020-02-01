@@ -1,10 +1,15 @@
-package dk.moelgaards.openpipe.models;
+package dk.moelgaards.openpipe.entities;
 
-public class WaterPipeModel  extends PipeModel {
-	private WaterPipeModel() {
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="tbl_waterpipe")
+public class WaterPipeEntity  extends PipeEntity {
+	private WaterPipeEntity() {
 		
 	}
-	public WaterPipeModel(WaterNodeModel fromNode, WaterNodeModel toNode) {
+	public WaterPipeEntity(WaterNodeEntity fromNode, WaterNodeEntity toNode) {
 		super.setFromNode(fromNode);
 		super.setToNode(toNode);
 	}

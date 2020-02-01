@@ -1,25 +1,39 @@
-package dk.moelgaards.openpipe.models;
+package dk.moelgaards.openpipe.entities;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToOne;
+
 import dk.moelgaards.openpipe.exceptions.NodeException;
 
-public abstract class PipeModel {
+@MappedSuperclass
+public abstract class PipeEntity {
+	@Id
+    @GeneratedValue
+    private Long id;
 
-	private NodeModel fromNode;
+	//@Column(name="fromnode")
+	@OneToOne(targetEntity = NodeEntity.class)
+	private NodeEntity fromNode;
+	///@Column(name="tonode")
+	@OneToOne(targetEntity = NodeEntity.class)
+	private NodeEntity toNode;
 	
-	public NodeModel getFromNode() {
+	public NodeEntity getFromNode() {
 		return fromNode;
 	}
 
-	public void setFromNode(NodeModel fromNode) {
+	public void setFromNode(NodeEntity fromNode) {
 		this.fromNode = fromNode;
 	}
-	
-	private NodeModel toNode;
 
-	public NodeModel getToNode() {
+	public NodeEntity getToNode() {
 		return toNode;
 	}
 
-	public void setToNode(NodeModel toNode) {
+	public void setToNode(NodeEntity toNode) {
 		this.toNode = toNode;
 	}
 	
@@ -43,7 +57,10 @@ public abstract class PipeModel {
 			throw new NodeException("toNode or fromNode is missing");
 		}		
 	}
-	
+	/**
+	 * 
+	 * @return the length of the pipe in a straight line
+	 */
 	private double calcLength() {
 		return Math.sqrt(
 				Math.pow((fromNode.getX() - toNode.getX()),2) -

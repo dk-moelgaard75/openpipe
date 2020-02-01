@@ -1,7 +1,14 @@
-package dk.moelgaards.openpipe.models;
+package dk.moelgaards.openpipe.entities;
 
-public class WaterNodeModel extends NodeModel {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="tbl_waternode")
+public class WaterNodeEntity extends NodeEntity {
 	
+	@Column(name="depth")
 	private double depth;
 	
 	public double getDepth() {
@@ -10,10 +17,10 @@ public class WaterNodeModel extends NodeModel {
 	public void setDepth(double depth) {
 		this.depth = depth;
 	}
-	private WaterNodeModel() {
+	private WaterNodeEntity() {
 		//empty private constructor ensures a WasteWaterNode isn´t created without a name
 	}
-	public WaterNodeModel(String name) {
+	public WaterNodeEntity(String name) {
 		super.setName(name);
 	}
 }

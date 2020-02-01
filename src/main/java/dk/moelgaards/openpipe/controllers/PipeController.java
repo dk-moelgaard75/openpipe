@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import dk.moelgaards.openpipe.models.*;
+import dk.moelgaards.openpipe.dtos.*;
 import dk.moelgaards.openpipe.entities.*;
 import dk.moelgaards.openpipe.repository.*;
 
@@ -34,32 +34,32 @@ public class PipeController {
 	 WasteWaterNodeRepository wwnRepository;
 
 	@GetMapping("/wastewaterpipe")
-	public List<WasteWaterPipeModel> getAllWasteWaterPipes() {
+	public List<WasteWaterPipeEntity> getAllWasteWaterPipes() {
 		return wwpRepository.findAll();
 	}
 
 	@PostMapping(value = "/wastewaterpipe")
-	public ResponseEntity<String> createWasteWaterpipe(@RequestBody WasteWaterPipeEntity wwpe) {
+	public ResponseEntity<String> createWasteWaterpipe(@RequestBody WasteWaterPipeDto wwpe) {
 		System.out.println("/pipe/wastewaterpipe - postmapping");
-		WasteWaterNodeModel fromNode = wwnRepository.findByName(wwpe.getFromNode());
-		WasteWaterNodeModel toNode = wwnRepository.findByName(wwpe.getToNode());
+		WasteWaterNodeEntity fromNode = wwnRepository.findByName(wwpe.getFromNode());
+		WasteWaterNodeEntity toNode = wwnRepository.findByName(wwpe.getToNode());
 		if (fromNode != null && toNode != null)
 		{
-			WasteWaterPipeModel curWwpe = new WasteWaterPipeModel(fromNode,toNode);
+			WasteWaterPipeEntity curWwpe = new WasteWaterPipeEntity(fromNode,toNode);
 			wwpRepository.save(curWwpe);
 			return new ResponseEntity<>("Wastewaterpipe created", HttpStatus.OK);
 		}
 		return new ResponseEntity<>("Wastewaterpipe wasn´t created - missing from or to node", HttpStatus.NOT_FOUND);
 	}
 	@GetMapping("/wastewaterpipe/{fromnode}/{tonode}")
-	public WasteWaterPipeModel getWasteWaterPipe(@PathVariable String fromNode, @PathVariable String toNode) {
+	public WasteWaterPipeEntity getWasteWaterPipe(@PathVariable String fromNode, @PathVariable String toNode) {
 		System.out.println("/pipe/wastewaterpipe/{fromnode}/{tonode} - getmapping");
 		return wwpRepository.findByNodes(fromNode, toNode);
 	}
 	@DeleteMapping("/wastewaterpipe/{fromnode}/{tonode}")
 	public ResponseEntity<String> deleteWasteWaterPipe(@PathVariable String fromNode, @PathVariable String toNode) {
 		System.out.println("/pipe/wastewaternode/{fromnode}/{tonode} - deletemapping");
-		WasteWaterPipeModel wwpe = wwpRepository.findByNodes(fromNode, toNode);
+		WasteWaterPipeEntity wwpe = wwpRepository.findByNodes(fromNode, toNode);
 		if (wwpe != null)
 		{
 			wwpRepository.delete(wwpe);
@@ -71,32 +71,32 @@ public class PipeController {
 	/*********************************************************/
 	
 	@GetMapping("/waterpipe")
-	public List<WaterPipeModel> getAllWaterPipes() {
+	public List<WaterPipeEntity> getAllWaterPipes() {
 		return wpRepository.findAll();
 	}
 
 	@PostMapping(value = "/waterpipe")
-	public ResponseEntity<String> createWaterpipe(@RequestBody WaterPipeEntity wpe) {
+	public ResponseEntity<String> createWaterpipe(@RequestBody WaterPipeDto wpe) {
 		System.out.println("/pipe/waterpipe - postmapping");
-		WaterNodeModel fromNode = wnRepository.findByName(wpe.getFromNode());
-		WaterNodeModel toNode = wnRepository.findByName(wpe.getToNode());
+		WaterNodeEntity fromNode = wnRepository.findByName(wpe.getFromNode());
+		WaterNodeEntity toNode = wnRepository.findByName(wpe.getToNode());
 		if (fromNode != null && toNode != null)
 		{
-			WaterPipeModel curWpe = new WaterPipeModel(fromNode,toNode);
+			WaterPipeEntity curWpe = new WaterPipeEntity(fromNode,toNode);
 			wpRepository.save(curWpe);
 			return new ResponseEntity<>("Waterpipe created", HttpStatus.OK);			
 		}
 		return new ResponseEntity<>("Waterpipe wasn´t created - from or to node missing", HttpStatus.NOT_FOUND);
 	}
 	@GetMapping("/waterpipe/{fromnode}/{tonode}")
-	public WaterPipeModel getWaterPipe(@PathVariable String fromnode, @PathVariable String tonode) {
+	public WaterPipeEntity getWaterPipe(@PathVariable String fromnode, @PathVariable String tonode) {
 		System.out.println("/pipe/waterpipe/{fromnode}/{tonode} - getmapping");
 		return wpRepository.findByNodes(fromnode, tonode);
 	}
 	@DeleteMapping("/waterpipe/{fromnode}/{tonode}")
 	public ResponseEntity<String> deleteWaterPipe(@PathVariable String fromNode, @PathVariable String toNode) {
 		System.out.println("/pipe/wastewaternode/{fromnode}/{tonode} - deletemapping");
-		WaterPipeModel wpe = wpRepository.findByNodes(fromNode, toNode);
+		WaterPipeEntity wpe = wpRepository.findByNodes(fromNode, toNode);
 		if (wpe != null)
 		{
 			wpRepository.delete(wpe);

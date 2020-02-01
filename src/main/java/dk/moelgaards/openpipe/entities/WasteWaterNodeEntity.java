@@ -1,7 +1,17 @@
-package dk.moelgaards.openpipe.models;
+package dk.moelgaards.openpipe.entities;
 
-public class WasteWaterNodeModel extends NodeModel {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="tbl_wastewaternode")
+public class WasteWaterNodeEntity extends NodeEntity {
+	
+	@Column(name="toplevel")
 	private double topLevel;
+	@Column(name="bottomLevel")
+	private double bottomLevel;	
 	
 	public double getTopLevel() {
 		return topLevel;
@@ -10,8 +20,6 @@ public class WasteWaterNodeModel extends NodeModel {
 		this.topLevel = topLevel;
 	}
 	
-	private double bottomLevel;
-	
 	public double getBottomLevel() {
 		return bottomLevel;
 	}
@@ -19,10 +27,10 @@ public class WasteWaterNodeModel extends NodeModel {
 		this.bottomLevel = bottomLevel;
 	}
 
-	private WasteWaterNodeModel()	{
+	private WasteWaterNodeEntity()	{
 		//empty private constructor ensures a WasteWaterNode isn´t created without a name
 	}
-	public WasteWaterNodeModel(String name) {
+	public WasteWaterNodeEntity(String name) {
 		super.setName(name);
 	}
 
