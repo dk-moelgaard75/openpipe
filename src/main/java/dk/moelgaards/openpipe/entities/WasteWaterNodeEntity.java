@@ -2,64 +2,20 @@ package dk.moelgaards.openpipe.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="tbl_wastewaternode")
-public class WasteWaterNodeEntity {
-
-    @Id
-    @GeneratedValue
-    private Long id;
-
-    @Column(name="name")
-	private String name;
-    
-    @Column(name="x")
-    private double x;
-    
-    @Column(name="y")
-    private double y;
-    
-    @Column(name="toplevel")
-    private double topLevel;
-
-	@Column(name="bottomlevel")
-    private double bottomLevel;
-
-	public Long getId() {
-		return id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
+public class WasteWaterNodeEntity extends NodeEntity {
 	
-	public double getX() {
-		return x;
-	}
-
-	public void setX(double x) {
-		this.x = x;
-	}
+	@Column(name="toplevel")
+	private double topLevel;
+	@Column(name="bottomLevel")
+	private double bottomLevel;	
 	
-	public double getY() {
-		return y;
-	}
-
-	public void setY(double y) {
-		this.y = y;
-	}
-    public double getTopLevel() {
+	public double getTopLevel() {
 		return topLevel;
 	}
-
 	public void setTopLevel(double topLevel) {
 		this.topLevel = topLevel;
 	}
@@ -71,4 +27,14 @@ public class WasteWaterNodeEntity {
 		this.bottomLevel = bottomLevel;
 	}
 
+	private WasteWaterNodeEntity()	{
+		//empty private constructor ensures a WasteWaterNode isn´t created without a name
+	}
+	public WasteWaterNodeEntity(String name) {
+		super.setName(name);
+	}
+
+	public double depth(){
+		return topLevel - bottomLevel;
+	}
 }

@@ -1,38 +1,17 @@
 package dk.moelgaards.openpipe.entities;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="tbl_waterpipe")
-public class WaterPipeEntity {
-	@Id
-    @GeneratedValue
-    private Long id;
+public class WaterPipeEntity  extends PipeEntity {
+	private WaterPipeEntity() {
+		
+	}
+	public WaterPipeEntity(WaterNodeEntity fromNode, WaterNodeEntity toNode) {
+		super.setFromNode(fromNode);
+		super.setToNode(toNode);
+	}
 	
-	 @Column(name="fromNode")
-	 private String fromNode;
-
-	 @Column(name="toNode")
-	 private String toNode;
-	
-	 public String getToNode() {
-		return toNode;
-	}
-
-	public void setToNode(String toNode) {
-		this.toNode = toNode;
-	}
-
-	public String getFromNode() {
-		return fromNode;
-	}
-
-	public void setFromNode(String fromNode) {
-		this.fromNode = fromNode;
-	}
-
 }
