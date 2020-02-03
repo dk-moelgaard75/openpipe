@@ -1,11 +1,17 @@
 package dk.moelgaards.openpipe.entities;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.Inheritance;
 
-@MappedSuperclass
+
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Table(name = "tbl_nodes")
 public abstract class NodeEntity {
 	@Id
     @GeneratedValue

@@ -1,14 +1,20 @@
 package dk.moelgaards.openpipe.entities;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import dk.moelgaards.openpipe.exceptions.NodeException;
 
-@MappedSuperclass
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Table(name = "tbl_pipes")
 public abstract class PipeEntity {
 	@Id
     @GeneratedValue

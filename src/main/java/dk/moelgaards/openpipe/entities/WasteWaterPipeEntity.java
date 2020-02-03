@@ -10,7 +10,6 @@ import javax.persistence.Table;
 
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name="tbl_wastewaterpipe")
 public class WasteWaterPipeEntity extends PipeEntity {
 	
