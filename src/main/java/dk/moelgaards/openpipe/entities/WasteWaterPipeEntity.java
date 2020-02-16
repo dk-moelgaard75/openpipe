@@ -6,13 +6,14 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
-
-
+@XmlRootElement
 @Entity
 @Table(name="tbl_wastewaterpipe")
 public class WasteWaterPipeEntity extends PipeEntity {
 	
+	@SuppressWarnings("unused")
 	private WasteWaterPipeEntity() {
 		//empty private constructor ensures a WasteWaterNode isn´t created without a name
 	}

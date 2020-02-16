@@ -3,7 +3,9 @@ package dk.moelgaards.openpipe.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 @Entity
 @Table(name="tbl_waternode")
 public class WaterNodeEntity extends NodeEntity {
