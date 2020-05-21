@@ -33,7 +33,7 @@ public class PipeController {
 	 @Autowired
 	 WasteWaterNodeRepository wwnRepository;
 
-	@GetMapping("/wastewaterpipe")
+	@GetMapping("/wastewaterpipes")
 	public List<WasteWaterPipeEntity> getAllWasteWaterPipes() {
 		return wwpRepository.findAll();
 	}

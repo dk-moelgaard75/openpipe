@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,7 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import dk.moelgaards.openpipe.dtos.*;
 import dk.moelgaards.openpipe.entities.*;
 import dk.moelgaards.openpipe.repository.*;
-
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/node")
 public class NodeController {
@@ -29,8 +30,9 @@ public class NodeController {
 	 @Autowired
 	 WaterNodeRepository wnRepository;
 	
-	@GetMapping("/wastewaternode")
+	@GetMapping("/wastewaternodes")
 	public List<WasteWaterNodeEntity> getAllWasteWaterNodes() {
+		System.out.println("/node/wastewaternodes/ - getmapping");
 		return wwnRepository.findAll();
 	}
 	@PostMapping(value = "/wastewaternode")
@@ -67,10 +69,12 @@ public class NodeController {
 	
 	/**********************************/
 
-	@GetMapping("/waternode")
+	@GetMapping("/waternodes")
 	public List<WaterNodeEntity> getAllWaterNodes() {
-		System.out.println("/node/waternode/{name} - getmapping");
-		return wnRepository.findAll();
+		System.out.println("/node/waternodes/ - getmapping");
+		List<WaterNodeEntity> list = wnRepository.findAll();
+		System.out.println("/node/waternodes/ - nr of element:" + list.size() );
+		return list;
 	}
 	@PostMapping(value = "/waternode")
 	public ResponseEntity<String> createWaterNode(@RequestBody WaterNodeEntity wndto) {
